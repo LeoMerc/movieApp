@@ -1,0 +1,66 @@
+from django.db import models
+from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
+# Create your models here.
+
+class Genre(models.Model):
+    moviesfK = models.ManyToManyField("Movie",)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+class Studio(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
+class Role(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
+class Person(models.Model):
+    name = models.CharField(max_length=128)
+    birthday = models.DateField(blank=True, null=True)
+    country = models.CharField(max_length=128, blank=True)
+    img_path = models.URLField(blank=True)
+    rolefK = models.ForeignKey(Role, on_delete=models.CASCADE, blank=True, null=True)
+    def __str__(self):
+        return self.name
+
+
+
+
+
+
+class Movie(models.Model):
+    title = models.CharField(max_length=200)
+    country = models.CharField(max_length=128)    
+    release_date = models.DateTimeField()
+
+    description = models.TextField()
+    studiofK = models.ForeignKey(Studio, on_delete=models.CASCADE, blank=True, null=True)
+
+    duration = models.IntegerField()
+    budget = models.IntegerField(blank=True, null=True)
+    gross = models.IntegerField(blank=True, null=True)
+    classification = models.CharField(max_length=128, blank=True)
+   # tmdb_id = models.IntegerField(blank=True, unique=True)
+    img_path = models.URLField(blank=True)
+    genresfK = models.ManyToManyField(Genre)
+    peoplefK = models.ManyToManyField(Person, through="Person")
+
+    def __str__(self):
+        return self.title
+
+class MovieReview(models.Model):
+    userfK = models.ForeignKey(User, on_delete=models.CASCADE)
+    moviefK = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    rating = models.PositiveSmallIntegerField(validators=[MinValueValidator(1),
+                                                          MaxValueValidator(100)])
+    review = models.TextField(blank=True)
