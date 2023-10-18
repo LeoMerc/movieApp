@@ -1,4 +1,23 @@
-{% extends "base.html" %} {% block title %} pagina home {% endblock %}
-{% block content %}
-<h1>pagina home</h1>
-{% endblock %}
+{%extends "base.html" %} {%block content%}
+<h1>Recent Movies</h1>
+
+    {%for movie in movies%}
+    <div>
+        <img src= {{movie.img_path}}  width="300" height="390"> </img>
+        <br> </br>
+        <h2> {{movie.title}} </h2>
+         
+        {{movie.release_date}}
+        <br> </br>
+        {{movie.description}}
+        <br> </br>
+       {% for genre in movie.genresfK.all%}
+            {{genre.name}}
+        {%endfor%}
+
+    </div>
+    {%endfor%}
+
+
+{%endblock%}
+```
