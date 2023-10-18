@@ -4,7 +4,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 class Genre(models.Model):
-    moviesfK = models.ManyToManyField("Movie",)
     name = models.CharField(max_length=200)
 
     def __str__(self):
@@ -53,10 +52,19 @@ class Movie(models.Model):
    # tmdb_id = models.IntegerField(blank=True, unique=True)
     img_path = models.URLField(blank=True)
     genresfK = models.ManyToManyField(Genre)
-    peoplefK = models.ManyToManyField(Person, through="Person")
+    credits = models.ManyToManyField(Person, through="MovieCredit")
 
     def __str__(self):
         return self.title
+
+class MovieCredit(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.movie.title}: {self.person.name} ({self.role.name})"
+    
 
 class MovieReview(models.Model):
     userfK = models.ForeignKey(User, on_delete=models.CASCADE)
