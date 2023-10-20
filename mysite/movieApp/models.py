@@ -5,6 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Genre(models.Model):
     name = models.CharField(max_length=200)
+    tmdb_id = models.IntegerField(blank=True, null=True, unique=True)
 
     def __str__(self):
         return self.name
@@ -26,9 +27,9 @@ class Role(models.Model):
 class Person(models.Model):
     name = models.CharField(max_length=128)
     birthday = models.DateField(blank=True, null=True)
-    country = models.CharField(max_length=128, blank=True)
-    img_path = models.URLField(blank=True)
-    rolefK = models.ForeignKey(Role, on_delete=models.CASCADE, blank=True, null=True)
+    country = models.CharField(max_length=128, null=True, blank=True)
+    img_path = models.URLField(null=True, blank=True)
+    # rolefK = models.ForeignKey(Role, on_delete=models.CASCADE, blank=True, null=True)
     def __str__(self):
         return self.name
 
@@ -39,18 +40,18 @@ class Person(models.Model):
 
 class Movie(models.Model):
     title = models.CharField(max_length=200)
-    country = models.CharField(max_length=128)    
-    release_date = models.DateTimeField()
+    country = models.CharField(max_length=128, null=True, blank=True)    
+    release_date = models.DateField()
 
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     studiofK = models.ForeignKey(Studio, on_delete=models.CASCADE, blank=True, null=True)
 
     duration = models.IntegerField()
     budget = models.IntegerField(blank=True, null=True)
     gross = models.IntegerField(blank=True, null=True)
     classification = models.CharField(max_length=128, blank=True)
-   # tmdb_id = models.IntegerField(blank=True, unique=True)
-    img_path = models.URLField(blank=True)
+    tmdb_id = models.IntegerField(blank=True, null=True, unique=True)
+    img_path = models.URLField(null=True, blank=True)
     genresfK = models.ManyToManyField(Genre)
     credits = models.ManyToManyField(Person, through="MovieCredit")
 
