@@ -21,5 +21,26 @@ def recommendedMovies(request):
                                                "movieReviews": MovieReview.objects.all()}
                   
                   )
+def movie(request):
+    return render(request, "movie.html", {"movieind": Movie.objects,
+                                               "genres": Genre.objects,
+                                               "studios": Studio.objects,
+                                               "people": Person.objects,
+                                               "roles": Role.objects,
+                                               "movieCredits": MovieCredit.objects,
+                                               "movieReviews": MovieReview.objects}
+                  
+                  )
+
+def cast(request):
+    return render(request, "cast.html", {"cast": Movie.objects,
+                                               "genres": Genre.objects,
+                                               "studios": Studio.objects,
+                                               "people": Person.objects,
+                                               "roles": Role.objects,
+                                               "movieCredits": MovieCredit.objects,
+                                               "movieReviews": MovieReview.objects}
+                  
+                  )
 
 

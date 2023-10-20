@@ -41,10 +41,8 @@ class Movie(models.Model):
     title = models.CharField(max_length=200)
     country = models.CharField(max_length=128)    
     release_date = models.DateTimeField()
-
     description = models.TextField()
     studiofK = models.ForeignKey(Studio, on_delete=models.CASCADE, blank=True, null=True)
-
     duration = models.IntegerField()
     budget = models.IntegerField(blank=True, null=True)
     gross = models.IntegerField(blank=True, null=True)
