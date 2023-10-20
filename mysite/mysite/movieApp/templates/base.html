@@ -1,0 +1,27 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}movieApp{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+ 
+</head>
+
+<body>
+  <!-- Side navigation -->
+ <div class="grandmain"> 
+  <div class="main">
+    <!-- Seccion De puro Movify -->
+    <h1>Movify</h1> 
+     <hr class="mt-0 mb-4"></hr>    <!-- Linea de color negra -->
+          {% block content %} {% endblock %}
+  </div>
+  
+   <div class="sidenav">
+    <a href="/">Home</a>
+    <a href="/recommendedMovies">Recommended</a>
+    <!-- <a href="/">Review</a> -->
+    </div>
+ </div>
+</body>
+</html>

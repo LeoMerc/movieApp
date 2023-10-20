@@ -1,32 +1,23 @@
 {%extends "base.html" %} {%block content%}
+<h1>Recommended Movies:</h1>
 
-<h1>Recent Movies</h1>
-
-    <div class="allmovie">
-        {%for movie in movies%}
-        <div class="individualMovieItem">
-        <div class="moviebox"> 
-        <a href="/movie"> 
+    {%for movie in movies%}
+    <div>
         <img src= {{movie.img_path}}  width="300" height="390"> </img>
-        </a>
         <br> </br>
         <h2> {{movie.title}} </h2>
          
         {{movie.release_date}}
         <br> </br>
-        <div class="description"> 
-                {{movie.description}}
-            </div>
+        {{movie.description}}
         <br> </br>
        {% for genre in movie.genresfK.all%}
             {{genre.name}}
         {%endfor%}
 
     </div>
-        </div>
-   
     {%endfor%}
-    </div>
 
 
 {%endblock%}
+```
