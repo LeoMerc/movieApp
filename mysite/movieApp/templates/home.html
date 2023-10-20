@@ -1,8 +1,11 @@
 {%extends "base.html" %} {%block content%}
+
 <h1>Recent Movies</h1>
 
-    {%for movie in movies%}
-    <div>
+    <div class="allmovie">
+        {%for movie in movies%}
+        <div class="individualMovieItem">
+        <div class="moviebox"> 
         <img src= {{movie.img_path}}  width="300" height="390"> </img>
         <br> </br>
         <h2> {{movie.title}} </h2>
@@ -11,13 +14,13 @@
         <br> </br>
         {{movie.description}}
         <br> </br>
+        
        {% for genre in movie.genresfK.all%}
             {{genre.name}}
         {%endfor%}
 
     </div>
+        </div>
     {%endfor%}
-
-
+    </div>
 {%endblock%}
-```
