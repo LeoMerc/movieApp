@@ -28,6 +28,7 @@ class Role(models.Model):
 
 
 class Person(models.Model):
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=128)
     birthday = models.DateField(blank=True, null=True)
     country = models.CharField(max_length=128, null=True, blank=True)

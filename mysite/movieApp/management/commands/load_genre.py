@@ -90,6 +90,7 @@ class Command(BaseCommand):
                 data = response.json()
 
                 new_person = Person.objects.get_or_create(name=data["name"], 
+                id = data["id"],
                 birthday=data["birthday"], 
                 country=data["place_of_birth"],
                 img_path=data["profile_path"])
