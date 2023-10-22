@@ -6,12 +6,12 @@
         {%for movie in movies%}
         <div class="individualMovieItem">
         <div class="moviebox"> 
-        <a href="/movie"> 
-        <img src= {{movie.img_path}}  width="300" height="390"> </img>
+        <a  href="{% url 'movieDetails' movie.tmdb_id %}"> 
+        <img src="https://image.tmdb.org/t/p/original{{ movie.img_path }}" width="300" height="390"> </img>
+
         </a>
         <br> </br>
         <h2> {{movie.title}} </h2>
-         
         {{movie.release_date}}
         <br> </br>
         <div class="description"> 

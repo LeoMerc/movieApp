@@ -1,32 +1,12 @@
 {%extends "base.html" %} {%block content%}
 
-<h1>THE ROCK</h1>
-
-    {% comment %} <div class="allmovie">
-        {%for movie in movies%}
-        <div class="individualMovieItem">
-        <div class="moviebox"> 
-        <a href="/movie"> 
-        <img src= {{movie.img_path}}  width="300" height="390"> </img>
-        </a>
-        <br> </br>
-        <h2> {{movie.title}} </h2>
-         
-        {{movie.release_date}}
-        <br> </br>
-        <div class="description"> 
-                {{movie.description}}
-            </div>
-        <br> </br>
-       {% for genre in movie.genresfK.all%}
-            {{genre.name}}
-        {%endfor%}
-
-    </div>
-        </div>
-   
-    {%endfor%}
-    </div> {% endcomment %}
-
+    <h1> person </h1>
+    <h1> {{movideCredits.person}}</h1>
+ {% for person in movie.credits.all %}
+         <div class="fotoName"> 
+            <img src="https://image.tmdb.org/t/p/original{{ person.img_path }}" width="250" height="250"> </img>
+            {{person.name}}
+         </div>
+            {%endfor%}
 
 {%endblock%}
