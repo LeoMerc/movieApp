@@ -81,6 +81,3 @@ class MovieReview(models.Model):
     review = models.TextField(blank=True)
 
 
-class MiFormulario(forms.Form):
-    reviw = models.CharField(blank=True, null=True)
-    rating = models.PositiveIntegerField()

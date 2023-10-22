@@ -40,7 +40,7 @@
         </div>
 
         </div>
-        <a  href="{% url 'NewReview' %}"> 
+        <a  href="{% url 'NewReview' idDB=movie.tmdb_id userID=request.user.id %}"> 
             <button type="button">Add a Review</button>
         </a>
 
