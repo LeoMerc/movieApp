@@ -1,4 +1,6 @@
+from django.http import Http404
 from django.shortcuts import render, HttpResponse, redirect
+import pandas as pd
 from .models import Movie, Genre, Studio, Person, Role, MovieReview, MovieCredit
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -16,6 +18,7 @@ from .models import (
     MovieCredit,
 )
 from .forms import MovieReviewForm
+from django.db.models import Case, When
 
 
 # Create your views here.
@@ -61,20 +64,63 @@ def home(request):
     )
 
 
-def recommendedMovies(request):
-    return render(
-        request,
-        "recommendedMoviesPage.html",
-        {
-            "movies": Movie.objects.all(),
-            "genres": Genre.objects.all(),
-            "studios": Studio.objects.all(),
-            "people": Person.objects.all(),
-            "roles": Role.objects.all(),
-            "movieCredits": MovieCredit.objects.all(),
-            "movieReviews": MovieReview.objects.all(),
-        },
-    )
+    # Recommendation Algorithm based from rajaprerak's github https://github.com/rajaprerak
+    # To get similar movies based on user rating
+def get_similar(movie_name,rating,corrMatrix):
+    similar_ratings = corrMatrix[movie_name]*(rating-2.5)
+    similar_ratings = similar_ratings.sort_values(ascending=False)
+    return similar_ratings
+
+
+def recommend(request):
+  
+
+    if not request.user.is_authenticated:
+        return redirect("login")
+    if not request.user.is_active:
+        raise Http404
+
+
+    movie_rating=pd.DataFrame(list(MovieReview.objects.all().values()))
+   
+    new_user=movie_rating.userfK_id.unique().shape[0]
+   
+    current_user_id= request.user.id
+   
+	# # if new user not rated any movie
+    # if current_user_id>new_user:
+    #     movie=Movie.objects.get(id=1)
+    #     q=MovieReview(userfK=request.user,moviefK=movie,rating=0,review="")
+    #     q.save()
+
+
+    userRatings = movie_rating.pivot_table(index=['userfK_id'],columns=['moviefK_id'],values='rating')
+    print("userRatings")
+    print(userRatings)
+
+
+    userRatings = userRatings.fillna(0,axis=1)
+    corrMatrix = userRatings.corr(method='pearson')
+
+    user = pd.DataFrame(list(MovieReview.objects.filter(userfK=request.user).values())).drop(['userfK_id','id','review'],axis=1)
+    user_filtered = [tuple(x) for x in user.values]
+    print("user_filtered")
+    print(user_filtered)
+    movie_id_watched = [each[0] for each in user_filtered]
+
+    similar_movies = pd.DataFrame()
+    for movie,rating in user_filtered:
+        similar_movies = similar_movies._append(get_similar(movie,rating,corrMatrix),ignore_index = True)
+
+    movies_id = list(similar_movies.sum().sort_values(ascending=False).index)
+    movies_id_recommend = [each for each in movies_id if each not in movie_id_watched]
+    preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(movies_id_recommend)])
+    movie_list=list(Movie.objects.filter(id__in = movies_id_recommend).order_by(preserved)[:10])
+
+    context = {'movie_list': movie_list}
+    print(movie_list)
+    return render(request, 'recommendedMoviesPage.html', context)
+   
 
 
 def movie(request):
@@ -161,7 +207,8 @@ class formReview(views.View):
                 review.moviefK = movie
                 review.userfK = user
                 review.save()
-                return redirect('movieDetails/' + str(idDB))  
+                return redirect(request.META.get('HTTP_REFERER'))
+
             
             # # render form with POST body data
             # form = MovieReviewForm(request.POST)

@@ -1,23 +1,31 @@
 {%extends "base.html" %} {%block content%}
 <h1>Recommended Movies:</h1>
 
-    {%for movie in movies%}
-    <div>
-        <img src= {{movie.img_path}}  width="300" height="390"> </img>
-        <br> </br>
-        <h2> {{movie.title}} </h2>
-         
-        {{movie.release_date}}
-        <br> </br>
-        {{movie.description}}
-        <br> </br>
-       {% for genre in movie.genresfK.all%}
-            {{genre.name}}
-        {%endfor%}
+<div class="allmovie">
+    {%if movie_list%}
+        {%for movie in movie_list%}
+    <div class="individualMovieItem">
+    <div class="moviebox"> 
+    <a  href="{% url 'movieDetails' movie.tmdb_id %}"> 
+    <img src="https://image.tmdb.org/t/p/original{{ movie.img_path }}" width="300" height="390"> </img>
 
-    </div>
+    </a>
+    <br> </br>
+    <h2> {{movie.title}} </h2>
+    {{movie.release_date}}
+    <br> </br>
+    <div class="description"> 
+            {{movie.description}}
+        </div>
+    <br> </br>
+   {% for genre in movie.genresfK.all%}
+        {{genre.name}}
     {%endfor%}
 
+</div>
+    </div>
+    {%endfor%}
+    {% endif %}
 
 {%endblock%}
 ```
