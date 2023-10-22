@@ -26,7 +26,7 @@
         <h1> Cast </h1>
             {% for person in movie.credits.all %}
         <div class="fotoName"> 
-        <a  href="{% url 'cast' movie.tmdb_id %}"> 
+        <a  href="{% url 'cast' person.id %}"> 
             <img src="https://image.tmdb.org/t/p/original{{ person.img_path }}" width="250" height="250"> </img>
           </a>
         {{person.name}}
@@ -40,12 +40,11 @@
         </div>
 
         </div>
-
-        <button type="button">Add a Review</button>
+        <a  href="{% url 'NewReview' %}"> 
+            <button type="button">Add a Review</button>
+        </a>
 
      </div>
 
-     
-
-
+    
 {%endblock%}

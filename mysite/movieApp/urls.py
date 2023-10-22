@@ -7,4 +7,5 @@ urlpatterns = [
     # path("movie/", views.movie, name="movie"),
     path("cast/<int:idDB>", views.castInformation, name="cast"),
     path("movies/<int:idDB>", views.movieInformation, name="movieDetails"),
+    path("Form", views.formReview, name="NewReview"),
 ]
