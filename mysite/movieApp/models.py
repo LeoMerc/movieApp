@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django import forms
+
 
 # Create your models here.
 
@@ -77,3 +79,8 @@ class MovieReview(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(100)]
     )
     review = models.TextField(blank=True)
+
+
+class MiFormulario(forms.Form):
+    reviw = models.CharField(blank=True, null=True)
+    rating = models.PositiveIntegerField()
