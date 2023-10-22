@@ -1,8 +1,6 @@
 {%extends "base.html" %} {%block content%}
 
     <h1>{{movie.title}}</h1>
-
-
     <div class="individualMovie">
     {% comment %} Movie information {% endcomment %}
     <div class= "informationMovie">
@@ -13,8 +11,19 @@
          
         {{movie.release_date}}
         <br> </br>
-        {{movie.description}}
-        <br> </br>
+        {{movie.description}} 
+                <br> </br>
+       {% for studio in studio%}
+            Studio: {{studio.name}} <br>
+        {%endfor%}
+        Duration: {{movie.duration}} <br>
+        Budget: {{movie.budget}} <br>
+        gross: {{movie.gross}} <br>
+        {% if  movie.classification == true %}
+        Movie is classification +18
+        {% else %}
+            <p>Movie is classification -18.</p>
+        {% endif %}
        {% for genre in movie.genresfK.all%}
             {{genre.name}}
         {%endfor%}
@@ -36,7 +45,19 @@
 
         <div class="movieReview">
         <h1> Review </h1>
-
+        <div class="reviewSector"> 
+        {% if reviews.all %}
+            {% for review in reviews.all%}
+               <div class="singleReview">
+                User: {{review.userfK}}<br>
+                {{review.review}} <br>
+                Rating: {{review.rating}}<br>
+                </div>
+            {%endfor%}
+        {% else %}
+            <p>No Hay Reviews.</p>
+        {% endif %}
+        </div>
         </div>
 
         </div>
