@@ -1,12 +1,15 @@
 {%extends "base.html" %} {%block content%}
 
-    <h1> person </h1>
-    <h1> {{movideCredits.person}}</h1>
- {% for person in movie.credits.all %}
+  <div class="allPageCast"> 
+   <div class="individualPerson">
          <div class="fotoName"> 
             <img src="https://image.tmdb.org/t/p/original{{ person.img_path }}" width="250" height="250"> </img>
-            {{person.name}}
+               <h1> - {{person.name}}</h1>
+               <h1> - {{person.birthday}}</h1>
+               <h1> - {{person.country}}</h1>
          </div>
-            {%endfor%}
+    </div>
+  </div>
+
 
 {%endblock%}

@@ -4,7 +4,8 @@
 <head>
     <title>{% block title %}movieApp{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
- 
+    {% comment %} <p> {{request.user}} </p> {% endcomment %}
+
 </head>
 
 <body>
@@ -12,12 +13,27 @@
  <div class="grandmain"> 
   <div class="main">
     <!-- Seccion De puro Movify -->
+    <div class="title-container">
     <h1>Movify</h1> 
+    <div class="filler"> </div>
+    <h1>{{request.user}}</h1> 
+
+    <a  href="{% url 'login' %}"> 
+
+    <button class="button">Login</button> </a>
+
+
+
+    <a  href="{% url 'logout' %}">
+    <button class="button">Logout</button> </a>
+
+   </div>
+
     <p> {{mi_variable}} </p>
      <hr class="mt-0 mb-4"></hr>    <!-- Linea de color negra -->
           {% block content %} {% endblock %}
   </div>
-  
+    <!-- Seccion de la barra de navegacion -->
    <div class="sidenav">
     <a href="/">Home</a>
     <a href="/recommendedMovies">Recommended</a>
