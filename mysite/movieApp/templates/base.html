@@ -13,23 +13,19 @@
  <div class="grandmain"> 
   <div class="main">
     <!-- Seccion De puro Movify -->
+       {% block header %}
     <div class="title-container">
     <h1>Movify</h1> 
     <div class="filler"> </div>
-    <h1>{{request.user}}</h1> 
+    <h1 class="user">{{request.user}}</h1> 
 
     <a  href="{% url 'login' %}"> 
-
     <button class="button">Login</button> </a>
-
-
-
     <a  href="{% url 'logout' %}">
     <button class="button">Logout</button> </a>
+       </div>
 
-   </div>
-
-    <p> {{mi_variable}} </p>
+{% endblock %}
      <hr class="mt-0 mb-4"></hr>    <!-- Linea de color negra -->
           {% block content %} {% endblock %}
   </div>
