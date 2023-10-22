@@ -2,12 +2,13 @@
 
   .grandmain {
     display: flex;
-    background-color: #111; /* Black */
+    background-color: #111; /* Black  111*/
     top: 0;
     right: 0;
     left: 0;
-    bottom: 0;
+    /* bottom: 0; */
     position: absolute;
+    overflow-y: hidden;
     
   }
   .main {
@@ -24,6 +25,7 @@
     display: flex;
     margin: 0;
     padding: 10;
+    height: 810px;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     gap: 10px;
@@ -34,8 +36,9 @@
     width: 370px;
     text-align: center;
     box-sizing: border-box;
+    border: 2px solid white;
   }
-  
+ 
   .description {
     overflow-y: scroll;
 
@@ -51,7 +54,7 @@
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     padding-right: 20px;
-    border: 20px white;
+    border-right: 2px solid white;
     
   }
 
@@ -70,44 +73,65 @@
   }
 
 
-  /* Movie Indivudal section */
+  /* Sección donde va la info de la pelicula, el cast y las reviews */
   .individualMovie {
-    background-color: white;
-    width: 1300px;
-    height: 600px;
-    display: flex;
+    width: 1400px;
+    height: 825px;
+    display: flex;   
+    bottom: 0;
+    margin: 10px;
   }
 
+  /* Pelicula individual */
   .informationMovie {
-    background-color: red;
-    width: 300px;
+    background-color: #111;
+    margin: 10px;
+    width: 500px;
     height: auto;
+    bottom: 0;
+    overflow-y: visible;
+    text-align: center;
+    border: 2px solid white;
+  }
+  
+  /* Imagen dentro de la información de las pelicula */
+  .informationMovie img {
+    padding: 10px;
   }
 
+  /* Sección donde se envuelve la parte de cast y Review */
   .movieCR {
     display: flex;
     flex-direction: column;
-    width: 1000px;
+    width: 1500px;
+    margin: 10px;
   }
 
+  /* Parte del MovieCast */
   .movieCast {
     display: flex;
     padding-left: 10px;
-    background-color: blue;
-    height: 300px;
+    background-color: #111;
+    height: 325px;
+    width: 1000px;
     overflow-x: scroll;
     gap: 10px;
+    border: 2px solid white;
+    text-align: center;
   }
-  
+  /* Imagen que se va repitiendo en la sección de cast */
   .movieCast img {
     margin-top: 50px;
     width: 200px;
     height: 200px;
   }
-
+  /* Parte de la review   */
   .movieReview {
-    background-color: green;
-    height: 300px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #111;
+    height: 450px;    
+    border: 2px solid white;
   }
 
   /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
