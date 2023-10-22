@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import Movie, Genre, Studio, Person, Role, MovieReview, MovieCredit
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django import views
 from .forms import UserRegisterForm
@@ -13,7 +14,6 @@ from .models import (
     Role,
     MovieReview,
     MovieCredit,
-    MiFormulario,
 )
 from .forms import MovieReviewForm
 
@@ -141,34 +141,35 @@ def castInformation(request, idDB):
         {"movie": movie, "person": person},
     )
 
-# def login_user(request):
-#     if request.method=="POST":
-#         username = request.POST["username"]
-#         password = request.POST["password"]
-#         print(username)
-#         print(password)
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             print("User is not none")
-#             login(request, user)
-#             return redirect("");
-#             ...
-#         else:
-#             messages.info(request, "Username or password is incorrect")
-#             return redirect("login");
 
 
+class formReview(views.View):
 
-#     else:
-#         return render(
-#             request,
-#             "login.html",
-#             {},
-#         )
+    def get(self, request, idDB, userID):
+            movie = Movie.objects.get(tmdb_id=idDB)
+            user = User.objects.get(id=userID)
+            form = MovieReviewForm(initial={'moviefK': movie, 'userfK': user})
+            return render(request, "review.html", {"form": form})
 
-def formReview(request):
-    form = MovieReviewForm(request.POST)
-    if form.is_valid():
-        form.save()
+    def post(self, request, idDB, userID):
+            movie = Movie.objects.get(tmdb_id=idDB)
+            user = User.objects.get(id=userID)
+            print(movie)
+            form = MovieReviewForm(request.POST)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.moviefK = movie
+                review.userfK = user
+                review.save()
+                return redirect('movieDetails/' + str(idDB))  
+            
+            # # render form with POST body data
+            # form = MovieReviewForm(request.POST)
+            # # check if form is vaild
+            # if form.is_valid():
+            #     form.save()
 
-    return render(request, "review.html", {"form": form})
+               
+
+            # # redirect when finished
+            # return redirect('movieDetails')
