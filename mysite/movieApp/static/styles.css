@@ -1,5 +1,34 @@
 /* The sidebar menu */
+  .title-container {
+    display: flex;
+    flex-direction: row;
+    
+  }
+  .title-text {
+    width: 40px;
+  }
+  .filler {
+    width: 16%;
+    background: lightgreen;
+  }
+  .mini-filler {
+    width: 16%;
+    background: lightgreen;
+  }
+  .rounded-t-5 {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
 
+  @media (min-width: 992px) {
+    .rounded-tr-lg-0 {
+      border-top-right-radius: 0;
+    }
+
+    .rounded-bl-lg-5 {
+      border-bottom-left-radius: 0.5rem;
+    }
+  }   
   .grandmain {
     display: flex;
     background-color: #111; /* Black  111*/

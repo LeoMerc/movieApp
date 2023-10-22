@@ -1,8 +1,37 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .models import Movie, Genre, Studio, Person, Role, MovieReview, MovieCredit
-
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django import views
+from .forms import UserRegisterForm
 
 # Create your views here.
+
+
+     
+class Register(views.View):
+        def get(self, request):
+            form = UserRegisterForm()
+            return render(request, "register.html", {"form": form})
+
+        def post(self, request):
+            # render form with POST body data
+            form = UserRegisterForm(request.POST)
+
+            # check if form is vaild
+            if form.is_valid():
+                new_user = form.save()
+
+                # if valid, save form and authenticate user
+                new_user = authenticate(
+                    username=form.cleaned_data['username'],
+                    password=form.cleaned_data['password1'])
+
+                login(request, new_user)
+
+            # redirect when finished
+            return redirect('home')
+
 def home(request):
     return render(
         request,
@@ -99,3 +128,28 @@ def castInformation(request, idDB):
         "cast.html",
         {"movie": movie, "movideCredits": movieCredits},
     )
+
+# def login_user(request):
+#     if request.method=="POST":
+#         username = request.POST["username"]
+#         password = request.POST["password"]
+#         print(username)
+#         print(password)
+#         user = authenticate(request, username=username, password=password)
+#         if user is not None:
+#             print("User is not none")
+#             login(request, user)
+#             return redirect("");
+#             ...
+#         else:
+#             messages.info(request, "Username or password is incorrect")
+#             return redirect("login");
+
+
+
+#     else:
+#         return render(
+#             request,
+#             "login.html",
+#             {},
+#         )
