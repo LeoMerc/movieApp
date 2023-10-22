@@ -4,6 +4,19 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django import views
 from .forms import UserRegisterForm
+from django.shortcuts import render, HttpResponse
+from .models import (
+    Movie,
+    Genre,
+    Studio,
+    Person,
+    Role,
+    MovieReview,
+    MovieCredit,
+    MiFormulario,
+)
+from .forms import MovieReviewForm
+
 
 # Create your views here.
 
@@ -113,9 +126,8 @@ def movieInformation(request, idDB):
 
 
 def castInformation(request, idDB):
-    movie = Movie.objects.get(tmdb_id=idDB)
-    # person = Person.objects.get(movie=movie)
-    # print(person.all())
+    person = Person.objects.get(id=idDB)
+    print(person)
     # pit = MovieCredit.objects.get(tmdb_id=idDB)
     movieCredits = MovieCredit.objects.filter()
     # print(movieCredits)
@@ -126,7 +138,7 @@ def castInformation(request, idDB):
     return render(
         request,
         "cast.html",
-        {"movie": movie, "movideCredits": movieCredits},
+        {"movie": movie, "person": person},
     )
 
 # def login_user(request):
@@ -153,3 +165,10 @@ def castInformation(request, idDB):
 #             "login.html",
 #             {},
 #         )
+
+def formReview(request):
+    form = MovieReviewForm(request.POST)
+    if form.is_valid():
+        form.save()
+
+    return render(request, "review.html", {"form": form})
