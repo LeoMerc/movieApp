@@ -1,14 +1,5 @@
 ## Segundo Proyecto de Programación web
 
-## Miembros del equipo
-- Juan Armando Aispuro Sánchez 19211593
-- Leonardo Mercado Celis 19211685
-
-```
-Proyecto #2 MovieApp, consta de hacer un proyecto de peliculas usando el framework de django 
-```
-# IMDb Web App
-
 Una aplicación web similar a IMDb que permite a los usuarios explorar, calificar y comentar películas.
 
 ## Características
@@ -26,3 +17,7 @@ Una aplicación web similar a IMDb que permite a los usuarios explorar, califica
   
 Link del video donde se explica: 
 **https://drive.google.com/file/d/1wTIF_79B1ukz10OU22FGroTSQVVdIyvH/view?usp=sharing**
+
+## Miembros del equipo
+- Juan Armando Aispuro Sánchez 19211593
+- Leonardo Mercado Celis 19211685
