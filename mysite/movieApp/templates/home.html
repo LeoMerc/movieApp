@@ -1,27 +1,35 @@
 {%extends "base.html" %} {%block content%}
 
-<h1>Recent Movies</h1>
+<h2>Recent Movies</h2>
 
     <div class="allmovie">
         {%for movie in movies%}
         <div class="individualMovieItem">
         <div class="moviebox"> 
         <a  href="{% url 'movieDetails' movie.tmdb_id %}"> 
-        <img src="https://image.tmdb.org/t/p/original{{ movie.img_path }}" width="300" height="390"> </img>
-
+            <div class="titlemovie">
+            <img src="https://image.tmdb.org/t/p/original{{ movie.img_path }}" width="300" height="390"> </img>
+            </div>
         </a>
         <br> </br>
+        <div class="titlemovie">
         <h2> {{movie.title}} </h2>
+        </div>
+        <div class="titlemovie">
+
         {{movie.release_date}}
+        </div>
         <br> </br>
         <div class="description"> 
                 {{movie.description}}
             </div>
         <br> </br>
+        <div class="titlemovie">
+
        {% for genre in movie.genresfK.all%}
             {{genre.name}}
         {%endfor%}
-
+            </div>
     </div>
         </div>
    
