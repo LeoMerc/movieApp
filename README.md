@@ -2,7 +2,7 @@
 
 ## Miembros del equipo
 - Juan Armando Aispuro Sánchez 19211593
-- Leonardo Mercado Celis
+- Leonardo Mercado Celis 19211685
 
 ```
 Proyecto #2 MovieApp, consta de hacer un proyecto de peliculas usando el framework de django 
